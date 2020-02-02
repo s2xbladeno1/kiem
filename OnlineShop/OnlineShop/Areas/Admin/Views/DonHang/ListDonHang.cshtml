@@ -1,0 +1,87 @@
+﻿@model PagedList.IPagedList<Model.EF.DonHang>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "ListDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Đơn hàng
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/Admin/DonHang/ListDonHang"><button class="btn btn-secondary">Tất cả đơn hàng</button></a>
+        <button id="choDuyet" class="btn btn-danger">Đơn hàng chờ duyệt</button>
+        <button id="daDuyet" class="btn btn-primary">Đơn hàng đã duyệt</button>
+        <button id="dangGiao" class="btn btn-warning">Đơn hàng đang giao</button>
+        <button id="daNhanHang" class="btn btn-success">Đơn hàng thành công</button>
+        <button id="Huy" class="btn btn-dark">Đơn hàng thất bại</button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>Mã ĐH</th>
+                        <th>Ngày đặt</th>
+                        <th>ID</th>
+                        <th>Người nhận</th>
+                        <th>SĐT</th>
+                        <th>Địa chỉ nhận</th>
+                        <th>Tổng tiền</th>
+                        <th>Tình trạng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+
+                        <td>@item.MaDH</td>
+                        <td>@item.NgayBan</td>
+                        @if (item.MaKH != null)
+                        {
+                            <td>@item.MaKH</td>
+                        }
+                        else
+                        {
+                            <td>Khách</td>
+                        }
+                        <td width="150px;">@item.HoTen</td>
+                        <td>@item.SDT</td>
+                        <td>@item.DiaChiNhan</td>
+                        <td>@String.Format("{0:#,##}", item.TongTien)₫</td>
+                        <td width="170px" style="text-align: center;">
+                            @if (item.TrangThai == "Chờ duyệt")
+                            {
+                                <button class="btn btn-danger"><a style="text-decoration: none; color: white;" href="ChiTietDonHang?madh=@item.MaDH">@item.TrangThai</a></button>
+                            }
+                            else if (item.TrangThai == "Đã duyệt")
+                            {
+                                <button class="btn btn-primary"><a style="text-decoration: none; color: white;" href="ChiTietDonHang?madh=@item.MaDH">@item.TrangThai</a></button>
+                            }
+                            else if (item.TrangThai == "Đang giao")
+                            {
+                                <button class="btn btn-warning"><a style="text-decoration: none; color: white;" href="ChiTietDonHang?madh=@item.MaDH">@item.TrangThai</a></button>
+                            }
+                            else if (item.TrangThai == "Đã nhận hàng")
+                            {
+                                <button class="btn btn-success"><a style="text-decoration: none; color: white;" href="ChiTietDonHang?madh=@item.MaDH">@item.TrangThai</a></button>
+                            }
+                            else
+                            {
+                                <button class="btn btn-dark"><a style="text-decoration: none; color: white;" href="ChiTietDonHang?madh=@item.MaDH">@item.TrangThai</a></button>
+                            }
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("ListDonHang", new { page }))
+        </div>
+    </div>
+</div>
+
+

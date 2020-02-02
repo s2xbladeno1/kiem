@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="~/Asset/admin/css/style.css">
+    <link href="~/Asset/admin/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Asset/admin/js/jquery-3.3.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="~/Asset/admin/fontawesome/css/all.css">
+    <link href="~/Asset/admin/css/jquery-ui.css" rel="stylesheet" />
+    <script src="~/Asset/admin/js/jquery-ui.js"></script>
+    <title>Phước Apple</title>
+    
+</head>
+<body>
+    <header class="container">
+        <div class="row">
+            <div id="header">
+                <div id="logo-search" class="col-xs-12 col-md-4">
+                    <div id="box-logo">
+                        <a href="/trang-chu" class="a-logo">
+                            <img id="logo" src="~/Asset/admin/img/logo.png" alt="Alternate Text" width="26%" />
+                            <h5 id="name_logo1">Phước</h5>
+                            <h5 id="name_logo2">Apple</h5>
+                        </a>
+
+                    </div>
+                    <div id="box-search">
+                        <form action="/tim-kiem" method="get" class="form-inline" id="formSearch">
+                            <input type="text" id="txtKeyword" name="keyword" placeholder="Tìm kiếm..." class="form-control form-control-lg border-info">
+                            <input type="submit" value="Search" id="btnSearch" class="btn btn-danger" />
+                        </form>
+                    </div>
+                </div>
+                @{Html.RenderAction("MenuCha", "SanPham");}
+
+                @RenderPage("~/Views/Shared/DangNhap.cshtml")
+            </div><!--End header-->
+        </div>
+    </header>
+    <div class="container">
+        <div class="row">
+            <div id="banner">
+                <div id="banner-1"><img name="myimg" src="~/Asset/admin/img/anh1.jpg" /></div>
+                <div id="banner-2">
+                    <a href="/chi-tiet-san-pham?iddmsp=AW0&masp=AW01&mamau=Whi&matt=B&madl=R16"><img class="banner-2-1" src="~/Asset/admin/img/banner1.png" /></a>
+                    <a href="#"><img class="banner-2-2" src="~/Asset/admin/img/banner2.png" /></a>
+                </div>
+            </div><!--End quangcao-->
+        </div>
+    </div>
+
+    @RenderBody()
+
+    <div id="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="menu-footer">
+                        <ul>
+                            <li class="tieuDe">THÔNG TIN HỖ TRỢ</li>
+                            <li><a href="#">Chính sách bảo hành</a></li>
+                            <li><a href="#">Chính sách đổi trả</a></li>
+                            <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="menu-footer">
+                        <ul>
+                            <li class="tieuDe">THÔNG TIN LIÊN LẠC</li>
+                            <li>Gọi mua hàng: <b>0909.117.117</b></li>
+                            <li>Gọi khiếu nại: <b>0909.116.116</b></li>
+                            <li>Gọi bảo hành: <b>0909.115.115</b></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="menu-footer">
+                        <ul>
+                            <li class="tieuDe">HỆ THỐNG CỬA HÀNG</li>
+                            <li>57 Ngô Gia Khảm, Thanh Khê, Đà Nẵng</li>
+
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Asset/admin/js/controller/baseController.js"></script>
+    <script src="~/Asset/admin/js/controller/repCMTcontroller.js"></script>
+    <script>
+        $(document).ready(function () {
+            $("#menu li").hover(function () {
+                $(this).find("ul:first").slideDown(100);
+            }, function () {
+                $(this).find("ul:first").hide(100);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        window.onload = function () { setTimeout("switchImage()", 3000); }
+        var current = 1;
+        var numIMG = 4;
+        function switchImage() {
+            current++;
+            document.images['myimg'].src = '/Asset/admin/img/anh' + current + '.jpg';
+            if (current == numIMG) { current = 0; }
+            setTimeout("switchImage()", 3000);
+        }
+    </script>
+    @RenderSection("jsFooter", required: false)
+</body>
+</html>

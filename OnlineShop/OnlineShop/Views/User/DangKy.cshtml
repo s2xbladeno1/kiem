@@ -1,0 +1,89 @@
+﻿@model OnlineShop.Models.DangKyModel
+@using BotDetect.Web.Mvc;
+<link href="@BotDetect.Web.CaptchaUrls.Absolute.LayoutStyleSheetUrl"
+      rel="stylesheet" type="text/css" />
+@{ MvcCaptcha DangKyCaptcha = new MvcCaptcha("DangKyCaptcha");}
+@{
+    ViewBag.Title = "DangKy";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div id="trang-signup">
+            <div class="row">
+                @using (Html.BeginForm("DangKy", "User", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div id="khung-signup" class="form-horizontal">
+                        <h4>Đăng ký thành viên</h4>
+                        <hr />
+                        <div class="form-group">
+                            @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+                        </div>
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.TaiKhoan, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.TaiKhoan, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.TaiKhoan, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.XacNhanMK, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.PasswordFor(model => model.XacNhanMK, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.XacNhanMK, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.HoTen, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.SDT, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.SDT, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.SDT, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, htmlAttributes: new { @class = "control-label col-md-12" })
+                            <div class="col-md-12">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-10">
+                                @Html.Captcha(DangKyCaptcha)
+                                @Html.TextBox("CaptchaCode")
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-offset-2 col-md-12">
+                                <input id="btn-signup" type="submit" value="Đăng ký" class="btn btn-primary" />
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

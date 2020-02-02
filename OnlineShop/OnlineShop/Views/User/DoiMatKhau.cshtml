@@ -1,0 +1,58 @@
+﻿@model OnlineShop.Models.DoiMatKhauModel
+
+@{
+    ViewBag.Title = "DoiMatKhau";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+    var user = ViewBag.userSession;
+}
+
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6" style="margin: 0 auto;">
+            @using (Html.BeginForm("DoiMatKhau","User",FormMethod.Post))
+            {
+                @Html.AntiForgeryToken()
+                <div>
+                    <h4 style="text-align: center; margin-top: 20px;">Đổi mật khẩu</h4>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @Html.HiddenFor(model => model.ID)
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MatKhauCu, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.PasswordFor(model => model.MatKhauCu, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MatKhauCu, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.MatKhau, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.PasswordFor(model => model.MatKhau, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.MatKhau, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.XacNhanMKMoi, htmlAttributes: new { @class = "control-label col-md-12" })
+                        <div class="col-md-12">
+                            @Html.PasswordFor(model => model.XacNhanMKMoi, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.XacNhanMKMoi, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-left: 200px;">
+                        <div class="col-md-offset-2 col-md-12" >
+                            <input type="submit" value="Xác nhận" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+
+            }
+        </div>
+        
+    </div>
+</div>

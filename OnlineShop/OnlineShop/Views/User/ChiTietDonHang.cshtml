@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewBag.Title = "ChiTietDonHang";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+    var donhang = (Model.EF.DonHang)ViewBag.ttDonHang;
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12" style="border: 1px solid silver; margin-top: 50px;">
+            <div class="card-header" style="width: 100%;">
+                <i class="fas fa-table"></i>
+                Chi tiết đơn hàng
+            </div>
+            <div class="col-md-12" style=" padding-top: 20px;">
+                <div class="col-md-6" style=" float: left;">
+                    <div class="form-group">
+                        <label>Mã đơn hàng: <b>@donhang.MaDH</b></label>
+                    </div>
+                    <div class="form-group">
+                        <label>Tổng tiền: <b style="color: red;"> @String.Format("{0:#,##}", donhang.TongTien) ₫</b> </label>
+                    </div>
+                    <div class="form-group">
+                        <label>Tình trạng: <b>@donhang.TrangThai</b></label>
+                    </div>
+                </div>
+                <div class="col-md-6" style=" float: right">
+                    <div class="form-group">
+                        <label>Người nhận: <b>@donhang.HoTen</b></label>
+                    </div>
+                    <div class="form-group">
+                        <label>Số điện thoại: <b>@donhang.SDT</b></label>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa chỉ nhận hàng: <b>@donhang.DiaChiNhan</b></label>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                            <th>Đánh giá</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.TenDayDu</td>
+                                <td>@item.SoLuong</td>
+                                <td>@String.Format("{0:#,##}", item.ThanhTien) ₫</td>
+                                @if (donhang.TrangThai == "Đã nhận hàng")
+                                {
+                                <td><a class="btn btn-success" href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">Đánh giá </a></td>
+                                }
+                                else {<td></td> }
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                <a href="/User/TheoDoiDonHang" class="btn btn-primary">Quay lại</a>
+            </div>
+        </div>
+    </div>
+</div>
+

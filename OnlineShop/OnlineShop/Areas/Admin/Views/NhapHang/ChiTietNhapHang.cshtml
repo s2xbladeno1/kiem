@@ -1,0 +1,62 @@
+﻿@{
+    ViewBag.Title = "ChiTietNhapHang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var nhaphang = (Model.EF.NhapHang)ViewBag.nhaphang;
+}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Chi tiết nhập hàng
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Mã nhập hàng: <b>@nhaphang.MaNH</b></label>
+        </div>
+        <div class="form-group">
+            <label>Người nhập: <b>@nhaphang.NguoiNhap</b></label>
+        </div>
+        <div class="form-group">
+            <label>Tổng tiền: <b style="color: red;">@String.Format("{0:#,##}", nhaphang.TongTien) ₫</b> </label>
+        </div>
+        <div class="form-group">
+            <label>Ngày nhập: <b>@nhaphang.NgayNhap</b></label>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <div><a href="/Admin/NhapHang/AddChiTietNhapHang?manh=@nhaphang.MaNH" class="btn btn-success"><i class="fas fa-plus-square"> Sản phẩm</i></a></div>
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Màu</th>
+                    <th>Bộ Nhớ</th>
+                    <th>Tình Trạng</th>
+                    <th>Giá nhập</th>
+                    <th>Số lượng nhập</th>
+                    <th>Thành tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.MaSP</td>
+                        <td>@item.MauSac.MauSac1</td>
+                        <td>@item.DungLuong.BoNho</td>
+                        <td>@item.MaTT</td>
+                        <td>@String.Format("{0:#,##}", item.GiaNhap)₫</td>
+                        <td>@item.SoLuongNhap</td>
+                        <td>@String.Format("{0:#,##}", item.ThanhTien)₫</td>
+                        <td>
+                            <a href="/Admin/NhapHang/EditChiTietNhapHang?manh=@item.MaNH&&masp=@item.MaSP&&mamau=@item.MaMau&&madl=@item.MaDL&&matt=@item.MaTT" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            <button class="btn btn-danger"><a href="#" class="XoaItem" data-idnh="@item.MaNH" data-idsp="@item.MaSP" data-idmau="@item.MaMau" data-idtt="@item.MaTT" data-iddl="@item.MaDL" style="color: white;"><i class="fas fa-trash"></i></a></button>
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <a href="/Admin/NhapHang/Index" class="btn btn-danger">Quay lại</a>
+    </div>
+</div>

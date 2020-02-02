@@ -1,0 +1,67 @@
+﻿@model List<Model.EF.DonHang>
+@{
+    ViewBag.Title = "TheoDoiDonHang";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+    var user = ViewBag.userSession;
+    var donHang = ViewBag.DonHang;
+}
+
+<div class="container">
+    <div class="row">
+            @if (Model.Count > 0)
+            {
+                  <div id="tbl-giohang" class="col-md-12">
+                    <h4>Đơn hàng của bạn</h4>
+                    <table class="table table-sm">
+                        <thead>
+                            <tr>
+                                <th>Mã ĐH</th>
+                                <th>Ngày đặt hàng</th>
+                                <th>Người Nhận</th>
+                                <th>SĐT</th>
+                                <th>Địa chỉ nhận</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td>@item.MaDH</td>
+                                <td>@item.NgayBan</td>
+                                <td>@item.HoTen</td>
+                                <td>@item.SDT</td>
+                                <td>@item.DiaChiNhan</td>
+                                <td>@String.Format("{0:#,##}", item.TongTien) ₫</td>
+                                @if (item.TrangThai == "Chờ duyệt")
+                                {
+                                    <td><button class="btn btn-danger">@item.TrangThai</button></td>
+                                }
+                                else
+                                {
+                                    <td><button class="btn btn-success">@item.TrangThai</button></td>
+                                }
+                                <td><a href="/chi-tiet-don-hang?madh=@item.MaDH" class="btn btn-primary">Xem chi tiết</a></td>
+                            </tr>
+                            }
+
+                        </tbody>
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                  <div id="tbl-giohang" class="col-md-12">
+                      <h4>Đơn hàng của bạn</h4>
+                      <div class="alert alert-danger">
+                          Đơn hàng trống
+                      </div>
+                  </div>
+                
+            }
+    </div>
+</div>

@@ -1,0 +1,48 @@
+﻿@model PagedList.IPagedList<Model.EF.DanhMucSanPham>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "LoaiSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh mục sản phẩm
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+                <div><a href="/Admin/SanPham/ThemDMSP" class="btn btn-success"><i class="fas fa-plus-square"> Thêm danh mục sản phẩm</i></a></div>
+                <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Tên DMSP</th>
+                            <th>SEO</th>
+                            <th>ID Cha</th>
+                            <th>Loại Sản Phẩm</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td>@item.ID</td>
+                                <td>@item.Ten</td>
+                                <td>@item.Url</td>
+                                <td>@item.DaCap</td>
+                                <td>@item.MaLSP</td>
+                                <td>
+                                    <a href="/Admin/SanPham/CapNhatDMSP?iddmsp=@item.ID" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                    <a href="#" class="del" data-iddmsp="@item.ID"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+                @Html.PagedListPager(Model, page => Url.Action("DanhMucSanPham","SanPham", new { page, @class = "btn btn-success" }))
+        </div>
+    </div>
+</div>

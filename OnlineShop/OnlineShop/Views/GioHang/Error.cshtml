@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewBag.Title = "Error";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="alert alert-danger" style="margin: 50px auto;">
+            Số lượng không đủ. Vui lòng mua ít hơn hoặc tham khảo sản phẩm khác<br />
+            @Html.ActionLink("Quay lại", "Index")
+        </div>
+    </div>
+</div>
+

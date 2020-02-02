@@ -1,0 +1,66 @@
+﻿@model List<OnlineShop.Models.GioHang>
+@{
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+}
+@section jsFooter{
+    <script src="/Asset/admin/js/controller/cartController.js"></script>
+}
+ <div class="container">
+     <div class="row">
+         <div id="tbl-giohang" class="col-md-12">
+             <h4>Giỏ hàng của bạn</h4>
+             @if (Model.Count > 0)
+             {
+                 decimal tong = 0;
+                 <table class="table table-sm" >
+                     <thead>
+                         <tr>
+                             <th>Tên Sản Phẩm</th>
+                             <th>Ảnh</th>
+                             <th>Số lượng</th>
+                             <th>Đơn giá</th>
+                             <th>Thành tiền</th>
+                             <th>Thao tác</th>
+                         </tr>
+                     </thead>
+                     <tbody>
+                         @foreach (var item in Model)
+                         {
+
+                             decimal tt = item.MauSanPham.Gia * item.SoLuong;
+                             tong = tong + tt;
+                             <tr>
+                                 <td>@item.MauSanPham.TenDayDu</td>
+                                 <td><img src="~/Asset/admin/img/@item.MauSanPham.Anh" width="70" height="50" /></td>
+                                 <td><input type="number" min="1" max="20" style="width: 50px; border-radius: 5px;" class="txtSoLuong" data-idsp="@item.MauSanPham.MaSP" data-idmau="@item.MauSanPham.MaMau" data-idtt="@item.MauSanPham.MaTT" data-iddl="@item.MauSanPham.MaDL" value="@item.SoLuong" /></td>
+                                 <td><span>@String.Format("{0:#,##}", item.MauSanPham.Gia) ₫</span></td>
+                                 <td><span>@String.Format("{0:#,##}", tt) ₫</span></td>
+                                 <td><a href="#" data-idsp="@item.MauSanPham.MaSP" data-idmau="@item.MauSanPham.MaMau" data-idtt="@item.MauSanPham.MaTT" data-iddl="@item.MauSanPham.MaDL" class="XoaSP"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a></td>
+
+                             </tr>
+
+                         }
+                     </tbody>
+                 </table>
+                 <div class="tong-tien">Tổng tiền:  <p class="tien"> <span>@String.Format("{0:#,##}", tong) ₫</span></p></div>
+                 <div id="btn-thaotac">
+                     <button id="btnThanhToan" class="btn btn-primary">Thanh toán</button>
+                     <button id="btnXoaGioHang" class="btn btn-primary">Xóa giỏ hàng</button>
+                     <button id="btnCapNhat" class="btn btn-primary">Cập nhật giỏ hàng</button>
+                     <button id="btnMuaTiep" class="btn btn-primary">Tiếp tục mua hàng</button>
+                 </div>
+             }
+
+             else
+             {
+                 <div >
+                     <div class="alert alert-danger">
+                         Không có sản phẩm trong giỏ
+                     </div>
+                 </div>
+             }
+         </div>
+     </div>
+ </div>
+        

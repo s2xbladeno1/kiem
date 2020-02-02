@@ -1,0 +1,48 @@
+﻿@{
+    ViewBag.Title = "Doanh thu tháng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section doanhThu{
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DoanhThu/GetDoanhThuTheoThang",
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+        });
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Tháng');
+            data.addColumn('number', 'Tổng nhập');
+            data.addColumn('number', 'Doanh Thu');
+            data.addColumn('number', 'Lợi nhuận');
+            var dataArray = [];
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.Thang + '/' + obj.Nam, obj.TongNhap, obj.DoanhThu, obj.LoiNhuan])
+            });
+            data.addRows(dataArray);
+            var columnChartOption = {
+                title: "Doanh thu theo tháng",
+                width: 1170,
+                height: 600,
+                bar: { groupWidth: "10%" }
+            }
+            var bieudoCot = new google.visualization.ColumnChart(document.getElementById('bieudo'))
+            bieudoCot.draw(data, columnChartOption);
+        }
+    </script>}
+
+<div id="bieudo"></div>

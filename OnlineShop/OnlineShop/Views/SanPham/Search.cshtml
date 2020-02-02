@@ -1,0 +1,32 @@
+﻿@model List<Model.ViewModel.SanPhamViewModel>
+@{
+    ViewBag.Title = "Kết quả tìm kiếm";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+}
+       <div class="container">
+           <div class="row">
+               <div id="trang-search" class="sanpham">
+                   <p class="iphone" style="padding-left: 20px"><b>Kết quả tìm kiếm cho từ khóa: @ViewBag.Keyword</b></p>
+                   @foreach (var item in Model)
+                   {
+
+                   <a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+                       <div class="item">
+                           <div class="item-img">
+                               <center><img src="~/Asset/admin/img/@item.Anh" width="140" height="140" /></center>
+                           </div>
+                           <div>
+                               <div class="ten">@item.TenDayDu</div>
+                               <div class="gia">Giá: <span>@String.Format("{0:#,##}", item.Gia) ₫</span></div>
+                               <div class="details"><a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">XEM CHI TIẾT</a></div>
+                               <div class="addcart"><a href="/them-gio-hang?masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL&soluong=1">THÊM VÀO GIỎ</a></div>
+
+
+                           </div>
+                       </div>
+                   </a>
+
+                   }
+               </div>
+           </div>
+       </div>

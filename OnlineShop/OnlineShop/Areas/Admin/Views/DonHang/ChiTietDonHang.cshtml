@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "ListDonHang";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    var donhang = (Model.EF.DonHang)ViewBag.ttDonHang;
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Chi tiết đơn hàng
+    </div>
+    <div class="col-md-6">
+        <div class="form-group">
+            <label>Mã đơn hàng: @donhang.MaDH</label>
+        </div>
+        <div class="form-group">
+            <label>Người nhận: @donhang.HoTen</label>
+        </div>
+        <div class="form-group">
+            <label>Số điện thoại: @donhang.SDT </label>
+        </div>
+        <div class="form-group">
+            <label>Địa chỉ nhận hàng: @donhang.DiaChiNhan</label>
+        </div>
+        <div class="form-group">
+            <label>Tổng tiền: @String.Format("{0:#,##}", donhang.TongTien) ₫ </label>
+        </div>
+        <div class="form-group">
+            <label>Tình trạng: </label>
+            <select data-tt="tinhtrang">
+                <option>@donhang.TrangThai</option>
+                <option>Đã duyệt</option>
+                <option>Đang giao</option>
+                <option>Đã nhận hàng</option>
+                <option>Hủy</option>
+            </select>
+            
+        </div>
+        <button type="submit" href="#" id="btnCapNhat" data-iddh="@donhang.MaDH" 
+                class="btn btn-primary">Cập nhật</button>
+    </div>
+    <div class="table-responsive">
+        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Tên sản phẩm</th>
+                    <th>Mã Màu</th>
+                    <th>Mã DL</th>
+                    <th>Mã TT</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td>@item.TenDayDu</td>
+                    <td>@item.MaMau</td>
+                    <td>@item.MaDL</td>
+                    <td>@item.MaTT</td>
+                    <td>@item.SoLuong</td>
+                    <td>@String.Format("{0:#,##}", item.ThanhTien) ₫</td>
+                </tr>
+                }
+
+            </tbody>
+        </table>
+        <a href="/Admin/DonHang/ListDonHang" class="btn btn-primary">Quay lại</a>
+    </div>
+</div>
+

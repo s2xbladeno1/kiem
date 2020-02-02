@@ -1,0 +1,32 @@
+﻿@model List<Model.ViewModel.SanPhamViewModel>
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+    var dmsp = ViewBag.TenDMSP;
+}
+<div class="container">
+    <div class="row">
+        <div id="trang-dmsp" class="col-md-12">
+            <div class="ten-dmsp">@dmsp.Ten
+                @*<a  href="#" data-iddmsp="@dmsp.ID" data-giaMix="7000000" data-giaMax="10000000" class="Loc">Từ 7 - 10 triệu</a>*@
+            </div>
+            @foreach (var item in Model)
+            {
+                <a href="/chi-tiet-san-pham?iddmsp=@item.ID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+                    <div class="item">
+                        <div class="item-img">
+                            <center><img src="~/Asset/admin/img/@item.Anh" width="170" height="170" /></center>
+                        </div>
+                        <div>
+                            <div class="ten">@item.TenDayDu</div>
+                            <div class="gia">Giá: <span>@String.Format("{0:#,##}", item.Gia) ₫</span></div>
+                            <div class="details"><a href="/chi-tiet-san-pham?iddmsp=@item.ID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">XEM CHI TIẾT</a></div>
+                            <div class="addcart"><a href="/them-gio-hang?masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL&soluong=1">THÊM VÀO GIỎ</a></div>
+                        </div>
+                    </div>
+                </a>
+            }
+        </div>
+    </div>
+</div>
+      

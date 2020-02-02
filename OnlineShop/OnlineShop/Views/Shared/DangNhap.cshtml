@@ -1,0 +1,35 @@
+﻿
+@{
+    var session = (UserLogin)Session[OnlineShop.Common.CommonConstant.USER_SESSION];
+}
+
+<div id="login" class="col-xs-12 col-md-3">
+    @if (session == null)
+    {
+        <div class="con-login" style="text-align: center;"><a href="/dang-nhap"><i class="fas fa-sign-in-alt"><br />Đăng nhập</i></a></div>
+        <div class="con-login" style="text-align: center;"><a href="/dang-ky"><i class="fas fa-user-plus"><br />Đăng ký</i></a></div>
+    }
+    else
+    {
+        <div id="menu" style=" width: 125px;">
+            <ul class="menu" style="text-align: center;">
+                <li>
+                    <a href="#"><i class="fas fa-user" style="text-align: center;"><br/>@session.TaiKhoan</i></a>
+                    <ul style="display: none ;">
+                        <li>
+                            <a href="/gio-hang"><i class="fas fa-cart-plus"></i> Giỏ hàng</a>
+                        </li>
+                        <li>
+                            <a href="/doi-mat-khau"><i class="fa fa-key" aria-hidden="true"></i> Đổi mật khẩu</a>
+                        </li>
+                        <li>
+                            <a href="/lich-su-dat-hang"><i class="fas fa-history"></i> Lịch sử đặt hàng</a>
+                        </li>
+                        <li><a href="#"><i class="fas fa-sign-out-alt" style="text-align: center;"></i>@Html.ActionLink(" Đăng Xuất", "DangXuat", "User")</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+        <div class="con-login" style="text-align: center;"></div>
+    }
+</div>

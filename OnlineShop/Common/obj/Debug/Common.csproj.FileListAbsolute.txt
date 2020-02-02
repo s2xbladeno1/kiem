@@ -1,0 +1,7 @@
+C:\Users\this pc\source\repos\OnlineShop\Common\bin\Debug\Common.exe.config
+C:\Users\this pc\source\repos\OnlineShop\Common\bin\Debug\Common.exe
+C:\Users\this pc\source\repos\OnlineShop\Common\bin\Debug\Common.pdb
+C:\Users\this pc\source\repos\OnlineShop\Common\obj\Debug\Common.csprojAssemblyReference.cache
+C:\Users\this pc\source\repos\OnlineShop\Common\obj\Debug\Common.csproj.CoreCompileInputs.cache
+C:\Users\this pc\source\repos\OnlineShop\Common\obj\Debug\Common.exe
+C:\Users\this pc\source\repos\OnlineShop\Common\obj\Debug\Common.pdb

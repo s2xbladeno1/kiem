@@ -1,0 +1,46 @@
+﻿@{
+    ViewBag.Title = "Thống kê sản phẩm bán ra";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@section spBanRa{
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $.ajax({
+                type: "POST",
+                dataType: "json",
+                contentType: "application/json",
+                url: "/DoanhThu/ThongKeSPBanRaTheoThang",
+                success: function (result) {
+                    google.charts.load('current', {
+                        'packages': ['corechart']
+                    });
+                    google.charts.setOnLoadCallback(function () {
+                        drawChart(result);
+                    });
+                }
+            });
+        });
+        function drawChart(result) {
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Sản Phẩm');
+            data.addColumn('number', 'Số lượng bán ra');
+            var dataArray = [];
+            $.each(result, function (i, obj) {
+                dataArray.push([obj.TenSP, obj.SoLuong])
+            });
+            data.addRows(dataArray);
+            var columnChartOption = {
+                title: "Số sản phẩm bán được trong tháng này",
+                width: 1000,
+                height: 400,
+                bar: { groupWidth: "10%" }
+            }
+            var bieudoCot = new google.visualization.ColumnChart(document.getElementById('bieudo'))
+            bieudoCot.draw(data, columnChartOption);
+        }
+    </script>}
+
+<div id="bieudo"></div>

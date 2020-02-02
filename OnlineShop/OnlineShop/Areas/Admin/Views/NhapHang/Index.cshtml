@@ -1,0 +1,53 @@
+﻿@model List<Model.EF.NhapHang>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách hàng đã nhập
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div><a href="/Admin/NhapHang/NhapHang" class="btn btn-success"><i class="fas fa-plus-square"> Nhập hàng</i></a></div>
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                <thead>
+                    <tr>
+                        <th>Mã Nhập Hàng</th>
+                        <th>Tổng Tiền</th>
+                        <th>Ngày Nhập</th>
+                        <th>ID Người Nhập</th>
+                        <th>Chi Tiết Nhập Hàng</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+
+                            <td>@item.MaNH</td>
+                        @if (item.TongTien == 0)
+                        {
+                            decimal tt = 0;
+                            <td>@tt ₫</td>
+                        }
+                        else
+                        {
+                            <td>@String.Format("{0:#,##}", @item.TongTien) ₫</td>
+                        }
+                            <td>@item.NgayNhap</td>
+                            <td>@item.NguoiNhap</td>
+                            <td><button class="btn btn-primary"><a href="/Admin/NhapHang/ChiTietNhapHang?manh=@item.MaNH" style="text-decoration: none; color: white;">Xem chi tiết</a></button></td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+

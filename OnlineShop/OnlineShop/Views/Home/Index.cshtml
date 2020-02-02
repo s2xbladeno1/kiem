@@ -1,0 +1,97 @@
+﻿@model List<Model.ViewModel.SanPhamViewModel>
+@{
+    /**/
+
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <div class="row">
+        <div class="sanpham">
+            <div class="iphone">
+                <div class="title-dmsp">
+                    <h5 style="margin-left: 30px; padding-top: 3px;">IPhone</h5>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                if (item.MaLSP == "DT")
+                {<a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+
+                        <div class="item">
+                            <div class="item-img">
+                                <center><img src="~/Asset/admin/img/@item.Anh" width="200" height="200" /></center>
+                            </div>
+                            <div>
+                                <div class="ten">@item.TenDayDu</div>
+                                <div class="gia"><span>@String.Format("{0:#,##}", @item.Gia) ₫</span></div>
+
+                                <div class="details"><a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">XEM CHI TIẾT</a></div>
+                                <div class="addcart"><a href="/them-gio-hang?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL&soluong=1">THÊM VÀO GIỎ</a></div>
+
+
+                            </div>
+                        </div>
+                    </a>
+
+                }
+            }
+        </div>
+        <div class="sanpham">
+            <div class="iphone">
+                <div class="title-dmsp">
+                    <h5 style="margin-left: 20px; padding-top: 3px;">Apple Watch</h5>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                if (item.MaLSP == "DH")
+                {<a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+                        <div class="item">
+                            <div class="item-img">
+                                <center><img src="~/Asset/admin/img/@item.Anh" width="170" height="170" /></center>
+                            </div>
+                            <div>
+                                <div class="ten">@item.TenDayDu</div>
+                                <div class="gia"><span>@String.Format("{0:#,##}", @item.Gia) ₫</span></div>
+                                <div class="details"><a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">XEM CHI TIẾT</a></div>
+                                <div class="addcart"><a href="/them-gio-hang?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL&soluong=1">THÊM VÀO GIỎ</a></div>
+
+
+                            </div>
+                        </div>
+                    </a>
+
+                }
+            }
+        </div>
+        <div class="sanpham">
+            <div class="iphone">
+                <div class="title-dmsp">
+                    <h5 style="margin-left: 30px; padding-top: 3px;">IPad</h5>
+                </div>
+            </div>
+            @foreach (var item in Model)
+            {
+                if (item.MaLSP == "MTB")
+                {<a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+                        <div class="item">
+                            <div class="item-img">
+                                <center><img src="~/Asset/admin/img/@item.Anh" width="170" height="170" /></center>
+                            </div>
+                            <div>
+                                <div class="ten">@item.TenDayDu</div>
+                                <div class="gia"><span>@String.Format("{0:#,##}", @item.Gia) ₫</span></div>
+                                <div class="details"><a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">XEM CHI TIẾT</a></div>
+                                <div class="addcart"><a href="/them-gio-hang?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL&soluong=1">THÊM VÀO GIỎ</a></div>
+
+
+                            </div>
+                        </div>
+                    </a>
+
+                }
+            }
+        </div>
+    </div>
+</div>

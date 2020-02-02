@@ -1,0 +1,33 @@
+﻿
+@model IEnumerable<Model.ViewModel.SanPhamViewModel>
+  
+@{
+
+    ViewBag.Title = "Trang chủ";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+    var tenLSP = ViewBag.TenLSP;
+}
+ <div class="container">
+    <div class="row">
+        <div id="trang-loaisp" class="sanpham">
+            <div class="iphone" style="padding-left: 20px;"><b>@tenLSP</b></div>
+            @foreach (var item in Model)
+            {
+                <a href="/chi-tiet-san-pham?iddmsp=@item.ID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+                    <div class="item">
+                        <div class="item-img">
+                            <center><img src="~/Asset/admin/img/@item.Anh" width="140" height="140" /></center>
+                        </div>
+                        <div>
+                            <div class="ten">@item.TenDayDu</div>
+                            <div class="gia">Giá: <span>@String.Format("{0:#,##}", item.Gia) ₫</span></div>
+                            <div class="details"><a href="/chi-tiet-san-pham?iddmsp=@item.ID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">XEM CHI TIẾT</a></div>
+                            <div class="addcart"><a href="/them-gio-hang?masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL&soluong=1">THÊM VÀO GIỎ</a></div>
+                        </div>
+                    </div>
+                </a>
+            }
+
+        </div>
+    </div>
+</div>

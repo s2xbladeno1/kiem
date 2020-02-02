@@ -1,0 +1,35 @@
+﻿@model List<Model.EF.DanhMucSanPham>
+<div id="menu" class="col-xs-12 col-md-5">
+    <ul class="menu" style="text-align: center;">
+        @foreach (var item in Model.Where(x => x.DaCap == null))
+        {
+            var menucon = Model.Where(x => x.DaCap == item.ID);
+        <li>
+            @if (item.Ten == "IPhone")
+            {
+                <a href="/loai-san-pham?idlsp=@item.MaLSP"><i class="fas fa-mobile-alt"><br /> <b>@item.Ten</b></i> </a>
+            }
+            else if (item.Ten == "IPad")
+            {
+                <a href="/loai-san-pham?idlsp=@item.MaLSP"><i class="fas fa-tablet-alt"><br /> <b>@item.Ten</b></i></a>
+            }
+            else
+            {
+                <a href="/loai-san-pham?idlsp=@item.MaLSP"><i class="fas fa-clock"><br /> <b>@item.Ten</b></i></a>
+            }
+            @if (menucon.Count() > 0)
+            {
+                <ul>
+                    @foreach (var menuconItem in menucon)
+                    {
+                        <li><a href="/danh-muc-san-pham?iddmsp=@menuconItem.ID">@menuconItem.Ten</a></li>
+                    }
+
+                </ul>
+
+            }
+        </li>
+        }
+    </ul>
+</div>
+

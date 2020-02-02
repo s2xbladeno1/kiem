@@ -1,0 +1,73 @@
+﻿@model PagedList.IPagedList<Model.EF.NguoiDung>
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Quản lý người dùng";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách người dùng
+    </div>
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="/Admin/User/Index"><button class="btn btn-dark">Tất cả người dùng</button></a>
+        <button id="AD" class="btn btn-danger">Admin và nhân viên</button>
+        <button id="MEMBER" class="btn btn-primary">Thành viên</button>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            @using (Html.BeginForm("Index", "User", FormMethod.Get))
+            {
+                <div class="col-md-4" style="float: right;">
+                    <div class="input-group">
+                        <input type="text" name="SearchUser" value="@ViewBag.SearchUser" class="form-control" placeholder="Nhập tên ..." aria-label="Search" aria-describedby="basic-addon2">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="submit">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr style="text-align: center;">
+                        <th>Chức vụ</th>
+                        <th>Tài Khoản</th>
+                        <th>Họ tên</th>
+                        <th>Email</th>
+                        <th>Số điện thoại</th>
+                        <th>Tình Trạng</th>
+                        <th>Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.GroupID</td>
+                            <td>@item.TaiKhoan</td>
+                            <td>@item.HoTen</td>
+                            <td>@item.Email</td>
+                            <td>@item.SDT</td>
+                            @if (item.TinhTrang == true)
+                            {
+                                <td style="text-align: center;"><button class="btn btn-success">Hoạt động</button></td>
+                            }
+                            else
+                            {
+                                <td style="text-align: center;"><button class="btn btn-danger">Đã Khóa</button></td>
+                            }
+                            <td style="text-align: center;">
+                                <a href="#" data-iduser="@item.ID" data-tt="@item.TinhTrang" class="Lock"><i class="fas fa-user-lock"></i></a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("Index", new { page, @SearchUser = @ViewBag.SearchUser }))
+        </div>
+    </div>
+</div>
+

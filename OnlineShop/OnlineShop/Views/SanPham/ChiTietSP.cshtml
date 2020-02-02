@@ -1,0 +1,437 @@
+﻿@model Model.ViewModel.SanPhamViewModel
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_LayoutNoneSlide.cshtml";
+    var sptt = ViewBag.sptuongtu;
+    var chonMau = ViewBag.chonMau;
+    var chonBoNho = ViewBag.chonBoNho;
+    var cmt = ViewBag.BinhLuan;
+    var user = ViewBag.user;
+    var danhGia = ViewBag.danhGia;
+    var replyID = ViewBag.replyCMT;
+    var tenNguoiDG = ViewBag.TenNguoiDanhGia;
+}
+<div class="container">
+    <div class="row">
+        
+        <div id="ctsp-ten" class="col-md-12"><h5>@Model.TenDayDu</h5></div>
+        <div id="ctsp-anh" class="col-md-4">
+            <img src="~/Asset/admin/img/@Model.Anh" width="100%" />
+        </div>
+        <div class="col-md-4">
+            <div class="col-md-12"><a href="/chi-tiet-san-pham?iddmsp=IPh02M&masp=IP01&mamau=Gol&matt=B&madl=R64"><img src="~/Asset/admin/img/qc_ctsp.jpg" width="100%" /></a></div>
+            <div id="ctsp-gia"><span>@String.Format("{0:#,##}", Model.Gia) ₫</span></div>
+            <div id="ctsp-mau">
+                <b>Màu sắc</b>:
+                @foreach (var item in chonMau)
+                {
+                    <a style="font-size: 13px;" class="btn btn-success" href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">@item.MauSac</a>
+                }
+            </div>
+            <div>
+                <b>Hình thức</b>: @Model.MoTa
+            </div><br />
+            <div style="margin-top: -15px;">
+                @if (Model.MaTT == "B")
+                {
+                    <p><b>Bảo hành</b>: 6 tháng</p>
+                }
+                else
+                {<p><b>Bảo hành</b>: 12 tháng</p>}
+            </div>
+            @if (Model.SoLuongCon > 0)
+            {
+                <div style="margin-top: -8px;"><b>Tình trạng: <b style="color: forestgreen;"> Còn hàng</b></b></div>
+            }
+            else
+            {
+                <div style="margin-top: -8px;" ><b>Tình trạng: <b style="color: red;"> Hết hàng</b></b></div>
+            }
+            <div id="ctsp-tuvan" class="col-md-12">
+                Gọi <span style="color: #db0000;font-weight:bold;">0378.12.9393</span> để được tư vấn (Từ 8:00-22:00)
+            </div>
+            <div id="mua-ngay"><a href="/them-gio-hang?masp=@Model.MaSP&mamau=@Model.MaMau&matt=@Model.MaTT&madl=@Model.MaDL&soluong=1"><i class="fas fa-cart-plus"></i> MUA NGAY</a></div>
+
+        </div>
+        <div class="col-md-4" style="float: left; border: 1px solid silver;">
+            <center><h5>Thông số kỹ thuật</h5></center>
+            <table id="ctsp-tskt" class="table table-striped">
+                <tr>
+                    <th>Bộ nhớ trong</th>
+                    <td>@Model.BoNho</td>
+                </tr>
+                <tr>
+                    <th>Ram</th>
+                    <td>@Model.Ram</td>
+                </tr>
+                <tr>
+                    <th>Camera chính</th>
+                    <td>@Model.CamChinh</td>
+                </tr>
+                <tr>
+                    <th>Camera phụ</th>
+                    <td>@Model.CamPhu</td>
+                </tr>
+                <tr>
+                    <th>Độ phân giải màn hình</th>
+                    <td>@Model.DoPhanGiai</td>
+                </tr>
+                <tr>
+                    <th>Dung lượng pin</th>
+                    <td>@Model.DLPin</td>
+                </tr>
+                <tr>
+                    <th>Hệ điều hành</th>
+                    <td>@Model.HeDH</td>
+                </tr>
+                <tr>
+                    <th>Kích thước màn hình</th>
+                    <td>@Model.KTManHinh</td>
+                </tr>
+            </table>
+        </div>
+        @if (user == null)
+        {
+            <div id="ctsp-danhgia" class="col-md-8">
+                <h5>
+                    @if (danhGia == 0)
+                    {
+                        <p>
+                            Đánh giá và nhận xét ( @cmt.Count nhận xét & 0.0 <i class="far fa-star"></i>)
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Đánh giá và nhận xét ( @cmt.Count nhận xét & @danhGia  <i class="far fa-star"></i>)
+                        </p>
+                    }
+
+                </h5>
+                <div class="comment">
+                    @foreach (var item in cmt)
+                    {
+                        <div class="noidung-danhgia">
+                            <b>@item.HoTen </b>( @item.DanhGia <i class="far fa-star"></i>): @item.NoiDung
+                            @foreach (var rep in replyID)
+                            {
+                                if (rep.ReplyID == item.MaBL)
+                                {
+                                    <div style="margin: 10px 0px 0px 20px;"><b style="color: mediumblue">@rep.HoTen </b>: @rep.NoiDung</div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @using (Html.BeginForm("ChiTietSP", "SanPham", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    if (user == null)
+                    {
+
+                    }
+                    else
+                    {
+                        <div class="form-horizontal" style="margin-top: 50px;">
+                            <h5>Gửi đánh giá</h5>
+                            <hr />
+                            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                            <input name="NguoiDungID" value="@user.ID" type="hidden" />
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.MaSP, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.MaMau, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(model => model.MaMau, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MaMau, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.MaTT, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(model => model.MaTT, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MaTT, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                @Html.HiddenFor(model => model.MaDL, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <div class="col-md-10">
+                                    @Html.HiddenFor(model => model.MaDL, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.MaDL, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                @Html.LabelFor(model => model.NoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
+                                <input type="radio" value="1" name="DanhGia" />
+                                <input type="radio" value="2" name="DanhGia" />
+                                <input type="radio" value="3" name="DanhGia" />
+                                <input type="radio" value="4" name="DanhGia" />
+                                <input type="radio" value="5" name="DanhGia" />
+                                <div class="col-md-10">
+                                    @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="submit" value="Gửi đánh giá" class="btn btn-danger" />
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                }
+            </div>
+        }
+        else if (user.GroupID == "MEMBER")
+        {
+            <div id="ctsp-danhgia" class="col-md-8">
+                <h5>
+                    @if (danhGia == 0)
+                    {
+                        <p>
+                            Đánh giá và nhận xét ( @cmt.Count nhận xét & 0.0 <i class="far fa-star"></i>)
+                        </p>
+                    }
+                    else
+                    { 
+                        <p>
+                            Đánh giá và nhận xét ( @cmt.Count nhận xét & @danhGia  <i class="far fa-star"></i>)
+                        </p>
+                    }
+
+                </h5>
+                <div class="comment">
+                    @foreach (var item in cmt)
+                    {
+                        <div class="noidung-danhgia">
+                            <b>@item.HoTen </b>( @item.DanhGia <i class="far fa-star"></i>): @item.NoiDung
+                            @foreach (var rep in replyID)
+                            {
+                                if (rep.ReplyID == item.MaBL)
+                                {
+                                    <div style="margin: 10px 0px 0px 20px;"><b style="color: mediumblue">@rep.HoTen </b>: @rep.NoiDung</div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @using (Html.BeginForm("ChiTietSP", "SanPham", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    if (user == null)
+                    {
+
+                    }
+                    else
+                    {
+                <div class="form-horizontal" style="margin-top: 50px;">
+                    <h5>Gửi đánh giá</h5>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @foreach (var item in sptt)
+                    {
+                        <input name="ID" value="@item.DMSPID" type="hidden" />
+                    }
+                    <input name="NguoiDungID" value="@user.ID" type="hidden" />
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaSP, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaMau, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaMau, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaMau, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaTT, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaTT, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaTT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaDL, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaDL, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaDL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <input type="radio" value="1.0" name="DanhGia" />
+                        <input type="radio" value="2.0" name="DanhGia" />
+                        <input type="radio" value="3.0" name="DanhGia" />
+                        <input type="radio" value="4.0" name="DanhGia" />
+                        <input type="radio" value="5.0" name="DanhGia" />
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Gửi đánh giá" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+                    }
+
+                }
+            </div>
+        }
+        else
+        {
+            <div id="ctsp-danhgia" class="col-md-8">
+                <h5>
+                    @if (danhGia == 0)
+                    {
+                        <p>
+                            Đánh giá và nhận xét ( @cmt.Count nhận xét & 0.0 <i class="far fa-star"></i>)
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Đánh giá và nhận xét ( @cmt.Count nhận xét & @danhGia  <i class="far fa-star"></i>)
+                        </p>
+                    }
+
+                </h5>
+                <div class="comment">
+                    @foreach (var item in cmt)
+                    {
+                        <div class="noidung-danhgia">
+                            <b>@item.HoTen </b>( @item.DanhGia <i class="far fa-star"></i>): @item.NoiDung <br /><a href="#" class="Rep" data-iddmsp="@item.ID" data-idbl="@item.MaBL" data-idsp="@item.MaSP" data-idmau="@item.MaMau" data-iddl="@item.MaDL" data-idtt="@item.MaTT">Trả lời</a>
+                            @foreach (var rep in replyID)
+                            {
+                                if (rep.ReplyID == item.MaBL)
+                                {
+                                    <div style="margin: 10px 0px 0px 20px;"><b style="color: mediumblue">@rep.HoTen </b>: @rep.NoiDung</div>
+                                }
+                            }
+                        </div>
+                    }
+                </div>
+                @using (Html.BeginForm("ChiTietSP", "SanPham", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+
+                    if (user == null)
+                    {
+
+                    }
+                    else
+                    {
+                <div class="form-horizontal" style="margin-top: 50px;">
+                    <h5>Gửi đánh giá</h5>
+                    <hr />
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    @foreach (var item in sptt)
+                    {
+                        <input name="ID" value="@item.DMSPID" type="hidden" />
+                    }
+                    @if (tenNguoiDG != null)
+                    {
+                        <input name="ReplyID" value="@tenNguoiDG.MaBL" type="hidden" />
+                    }
+                    <input name="NguoiDungID" value="@user.ID" type="hidden" />
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaSP, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaSP, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaSP, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaMau, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaMau, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaMau, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaTT, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaTT, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaTT, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.HiddenFor(model => model.MaDL, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.HiddenFor(model => model.MaDL, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.MaDL, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.NoiDung, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <p>
+                            ( Trả lời đánh giá của bạn: @if (@tenNguoiDG == null)
+                            { }
+                            else
+                            { <b>@tenNguoiDG.HoTen</b>})
+                        </p>
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.NoiDung, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.NoiDung, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-2 col-md-10">
+                            <input type="submit" value="Trả lời" class="btn btn-danger" />
+                        </div>
+                    </div>
+                </div>
+                    }
+
+                }
+            </div>
+        }
+        <div id="ctsp-sptuongtu" class="col-md-4">
+            <h5>Sản phẩm tương tự</h5>
+            @foreach (var item in sptt)
+            {
+                <a href="/chi-tiet-san-pham?iddmsp=@item.DMSPID&masp=@item.MaSP&mamau=@item.MaMau&matt=@item.MaTT&madl=@item.MaDL">
+                    <table>
+                        <tr>
+                            <td rowspan="2"><img src="~/Asset/admin/img/@item.Anh" width="100px" height="100px" /></td>
+                            <td>@item.TenDayDu</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-bottom: 20px; color: #DF0101; font-weight: bold;"><span>@String.Format("{0:#,##}", item.Gia) ₫</span></td>
+                        </tr>
+                    </table>
+                </a>
+            }
+
+        </div>
+    </div>
+</div>
+
+

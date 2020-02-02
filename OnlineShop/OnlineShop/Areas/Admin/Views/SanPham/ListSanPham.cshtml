@@ -1,0 +1,54 @@
+﻿@model PagedList.IPagedList<Model.EF.MauSanPham>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "ListSanPham";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách sản phẩm
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead style="text-align: center;">
+                    <tr>
+                        <th>Tên sản phẩm</th>
+                        <th>Màu</th>
+                        <th>Bộ Nhớ</th>
+                        <th>Tình Trạng</th>
+                        <th>Tên đầy đủ</th>
+                        <th>Giá</th>
+                        <th>Số lượng còn</th>
+                        <th width="120px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item.SanPham.TenSP</td>
+                            <td style="text-align: center;">@item.MauSac.MauSac1</td>
+                            <td>@item.DungLuong.BoNho</td>
+                            <td style="text-align: center;">@item.MaTT</td>
+                            <td>@item.TenDayDu</td>
+                            <td style="text-align: center;">@String.Format("{0:#,##}", item.Gia)₫</td>
+                            <td style="text-align: center;">@item.SoLuongCon</td>
+                            <td>
+                                
+                                <a href="/Admin/SanPham/CapNhatCTSP?masp=@item.MaSP&&mamau=@item.MaMau&&madl=@item.MaDL&&matt=@item.MaTT" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                                <a href="#" class="Xoa" data-idsp="@item.MaSP" data-idmau="@item.MaMau" data-idtt="@item.MaTT" data-iddl="@item.MaDL"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("ListSanPham", "SanPham", new { page }))
+        </div>
+    </div>
+</div>
+
+

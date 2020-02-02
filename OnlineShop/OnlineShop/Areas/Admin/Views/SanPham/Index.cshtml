@@ -1,0 +1,67 @@
+﻿@model PagedList.IPagedList<Model.EF.SanPham>
+@using PagedList.Mvc
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="card mb-3">
+    <div class="card-header">
+        <i class="fas fa-table"></i>
+        Danh sách sản phẩm
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <div><a href="/Admin/SanPham/ThemSP" class="btn btn-success"><i class="fas fa-plus-square"> Thêm sản phẩm</i></a></div>
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead style="text-align: center;">
+                    <tr>
+                        <th>Mã SP</th>
+                        <th>Tên SP</th>
+                        <th>Danh mục SP</th>
+                        <th>Loại SP</th>
+                        <th>Tổng SL</th>
+                        <th>Ram</th>
+                        <th>Camera chính</th>
+                        <th>Camera phụ</th>
+                        <th>CPU</th>
+                        <th>Độ phân giải</th>
+                        <th>Dung Lượng Pin</th>
+                        <th>Hệ điều hành</th>
+                        <th>Kích thước màn hình</th>
+                        <th width="170px">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                    <tr>
+                        <td>@item.MaSP</td>
+                        <td>@item.TenSP</td>
+                        <td style="text-align: center;">@item.DMSPID</td>
+                        <td>@item.MaLSP</td>
+                        <td>@item.TongSL</td>
+                        <td style="text-align: center;">@item.Ram</td>
+                        <td>@item.CamChinh</td>
+                        <td>@item.CamPhu</td>
+                        <td>@item.CPU</td>
+                        <td>@item.DoPhanGiai</td>
+                        <td>@item.DLPin</td>
+                        <td>@item.HeDH</td>
+                        <td>@item.KTManHinh</td>
+                        <td>
+                            <a href="/Admin/SanPham/ThemCTSP?masp=@item.MaSP" class="btn btn-success"><i class="fas fa-plus-square"></i></a>
+                            <a href="/Admin/SanPham/CapNhatSP?masp=@item.MaSP" class="btn btn-success"><i class="fas fa-edit"></i></a>
+                            <a href="#" class="DelSP" data-idsp="@item.MaSP"><button class="btn btn-danger"><i class="fas fa-trash"></i></button></a>
+                        </td>
+                    </tr>
+                    }
+
+                </tbody>
+            </table>
+            @Html.PagedListPager(Model, page => Url.Action("Index", "SanPham", new { page }))
+        </div>
+    </div>
+</div>
+
+
